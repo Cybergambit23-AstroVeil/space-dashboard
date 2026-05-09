@@ -28,9 +28,9 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- SIDEBAR NAVIGATION (TASKBAR) ---
+# --- SIDEBAR NAVIGATION ---
 with st.sidebar:
-    st.title("Astro-Portal v2.6")
+    st.title("Astro-Portal v2.8")
     st.markdown("---")
     menu = st.selectbox("Navigation", 
                         ["Dashboard", "Scientific Calculator", "Fundamental Forces", "Laws of Motion", "People", "My Projects"])
@@ -49,32 +49,29 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("🌐 [Official NASA Website](https://nasa.gov)")
 
-# --- DASHBOARD (LIVE NASA FEED) ---
+# --- DASHBOARD (NASA FEED) ---
 if menu == "Dashboard":
     st.header("Live Cosmic Observation")
     nasa_data = get_nasa_picture()
-    
     if nasa_data and "url" in nasa_data:
         st.image(nasa_data["url"], caption=f"Observation: {nasa_data.get('title', 'Unknown')}", use_container_width=True)
-        with st.expander("Read Scientific Briefing"):
-            st.write(nasa_data.get("explanation", "Loading briefing..."))
     else:
-        st.warning("Deep space connection unstable. Using JWST backup archives.")
-        st.image("https://nasa.govwp-content/uploads/2023/03/main_image_deep_field_smacs0723-5mb.jpg", use_container_width=True)
-
+        st.image("https://wikimedia.org", use_container_width=True)
+    
     st.markdown("---")
     st.markdown("### 🔍 Global Research Search")
-    query = st.text_input("", placeholder="Search archives for G.U.T., Newton, or Spacetime...")
+    query = st.text_input("", placeholder="Search astrophysics archives...")
     
     # Quick Access Links at the bottom of searchbar
     st.markdown("""
-    **Quick Access Research Databases:**
+    **🔭 Quick Access Research Databases:**
     *   [NASA ADS (Astrophysics Data System)](https://harvard.edu)
-    *   [ArXiv Astrophysics Pre-prints](https://arxiv.org)
+    *   [ArXiv (Astrophysics Pre-prints)](https://arxiv.org)
     *   [SIMBAD Astronomical Database](http://u-strasbg.fr)
+    *   [ESA Sky (Star Map)](https://esa.int)
     """)
 
-# --- SCIENTIFIC CALCULATOR ---
+# --- CALCULATORS & FORCES (No changes needed) ---
 elif menu == "Scientific Calculator":
     st.header("Physics Computation Lab")
     col1, col2 = st.columns(2)
@@ -93,19 +90,12 @@ elif menu == "Scientific Calculator":
         energy = mass * (c**2)
         st.metric("Energy (Joules)", f"{energy:.2e} J")
 
-# --- FUNDAMENTAL FORCES ---
 elif menu == "Fundamental Forces":
     st.header("The Four Fundamental Forces")
-    forces = {
-        "Gravity": "Infinite range. Governs planetary motion.",
-        "Electromagnetism": "Controls light and atomic bonds.",
-        "Weak Nuclear": "Responsible for radioactive decay.",
-        "Strong Nuclear": "Holds quarks together."
-    }
+    forces = {"Gravity": "Governs planetary and galactic motion.", "Electromagnetism": "Controls light and atomic structure.", "Weak Nuclear": "Responsible for radioactive decay.", "Strong Nuclear": "Holds atomic nuclei together."}
     for f, desc in forces.items():
         with st.expander(f): st.write(desc)
 
-# --- LAWS OF MOTION ---
 elif menu == "Laws of Motion":
     st.header("Newtonian Dynamics")
     st.markdown("1. **Inertia**")
@@ -113,23 +103,22 @@ elif menu == "Laws of Motion":
     st.markdown("2. **Acceleration**")
     st.markdown("3. **Reaction**")
 
-# --- PEOPLE (UPDATED IMAGE LINKS) ---
+# --- PEOPLE (RELIABLE WIKIMEDIA LINKS) ---
 elif menu == "People":
     st.header("Scientific Pioneers")
     st.write("Explorers of the fundamental laws of nature.")
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image("https://biography.com", caption="Sir Isaac Newton")
-        st.write("**Classical Mechanics**: Developed the laws of motion.")
+        st.image("https://wikimedia.org", caption="Sir Isaac Newton")
+        st.write("**Classical Mechanics**: Developed the laws of motion and gravitation.")
     with col2:
-        st.image("https://biography.com", caption="Albert Einstein")
-        st.write("**Relativity**: Revolutionized space and time.")
+        st.image("https://wikimedia.org", caption="Albert Einstein")
+        st.write("**Relativity**: Theory that revolutionized space and time.")
     with col3:
-        st.image("https://biography.com", caption="Stephen Hawking")
-        st.write("**Cosmology**: Changed our view of black holes.")
+        st.image("https://wikimedia.org", caption="Stephen Hawking")
+        st.write("**Cosmology**: Transformed our understanding of black holes.")
 
-# --- MY PROJECTS ---
 elif menu == "My Projects":
     st.header("Project Repository")
-    st.info("Status: Analyzing Gravitational Lensing Data.")
+    st.info("Status: Analyzing Gravitational Lensing Data from JWST.")
