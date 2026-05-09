@@ -30,7 +30,7 @@ st.markdown("""
 
 # --- SIDEBAR NAVIGATION ---
 with st.sidebar:
-    st.title("Astro-Portal v2.8")
+    st.title("Astro-Portal v2.9")
     st.markdown("---")
     menu = st.selectbox("Navigation", 
                         ["Dashboard", "Scientific Calculator", "Fundamental Forces", "Laws of Motion", "People", "My Projects"])
@@ -56,13 +56,12 @@ if menu == "Dashboard":
     if nasa_data and "url" in nasa_data:
         st.image(nasa_data["url"], caption=f"Observation: {nasa_data.get('title', 'Unknown')}", use_container_width=True)
     else:
-        st.image("https://wikimedia.org", use_container_width=True)
+        st.image("https://unsplash.com", use_container_width=True)
     
     st.markdown("---")
     st.markdown("### 🔍 Global Research Search")
     query = st.text_input("", placeholder="Search astrophysics archives...")
     
-    # Quick Access Links at the bottom of searchbar
     st.markdown("""
     **🔭 Quick Access Research Databases:**
     *   [NASA ADS (Astrophysics Data System)](https://harvard.edu)
@@ -71,7 +70,7 @@ if menu == "Dashboard":
     *   [ESA Sky (Star Map)](https://esa.int)
     """)
 
-# --- CALCULATORS & FORCES (No changes needed) ---
+# --- CALCULATORS & FORCES ---
 elif menu == "Scientific Calculator":
     st.header("Physics Computation Lab")
     col1, col2 = st.columns(2)
@@ -103,20 +102,20 @@ elif menu == "Laws of Motion":
     st.markdown("2. **Acceleration**")
     st.markdown("3. **Reaction**")
 
-# --- PEOPLE (RELIABLE WIKIMEDIA LINKS) ---
+# --- PEOPLE (NEW ROBUST IMAGE LINKS) ---
 elif menu == "People":
     st.header("Scientific Pioneers")
     st.write("Explorers of the fundamental laws of nature.")
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image("https://wikimedia.org", caption="Sir Isaac Newton")
+        st.image("https://pixabay.com", caption="Sir Isaac Newton (Historical Profile)")
         st.write("**Classical Mechanics**: Developed the laws of motion and gravitation.")
     with col2:
-        st.image("https://wikimedia.org", caption="Albert Einstein")
+        st.image("https://pixabay.com", caption="Albert Einstein (Theoretical Physics)")
         st.write("**Relativity**: Theory that revolutionized space and time.")
     with col3:
-        st.image("https://wikimedia.org", caption="Stephen Hawking")
+        st.image("https://pixabay.com", caption="Stephen Hawking (Cosmology Focus)")
         st.write("**Cosmology**: Transformed our understanding of black holes.")
 
 elif menu == "My Projects":
