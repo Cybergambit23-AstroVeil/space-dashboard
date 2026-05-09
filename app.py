@@ -24,13 +24,12 @@ st.markdown("""
     h1, h2, h3 { font-family: 'Roboto Mono', monospace; color: #FFFFFF; }
     .stMetric { background: #111; padding: 10px; border-radius: 10px; border: 1px solid #333; }
     a { color: #4A90E2 !important; text-decoration: none; font-weight: 600; }
-    a:hover { text-decoration: underline; }
     </style>
     """, unsafe_allow_html=True)
 
 # --- SIDEBAR NAVIGATION ---
 with st.sidebar:
-    st.title("Astro-Portal v2.9")
+    st.title("Astro-Portal v3.1")
     st.markdown("---")
     menu = st.selectbox("Navigation", 
                         ["Dashboard", "Scientific Calculator", "Fundamental Forces", "Laws of Motion", "People", "My Projects"])
@@ -60,17 +59,13 @@ if menu == "Dashboard":
     
     st.markdown("---")
     st.markdown("### 🔍 Global Research Search")
-    query = st.text_input("", placeholder="Search astrophysics archives...")
-    
+    query = st.text_input("", placeholder="Search archives for G.U.T., Newton, or Spacetime...")
     st.markdown("""
     **🔭 Quick Access Research Databases:**
-    *   [NASA ADS (Astrophysics Data System)](https://harvard.edu)
-    *   [ArXiv (Astrophysics Pre-prints)](https://arxiv.org)
-    *   [SIMBAD Astronomical Database](http://u-strasbg.fr)
-    *   [ESA Sky (Star Map)](https://esa.int)
+    *   [NASA ADS](https://harvard.edu) | [ArXiv](https://arxiv.org) | [SIMBAD](http://u-strasbg.fr) | [ESA Sky](https://esa.int)
     """)
 
-# --- CALCULATORS & FORCES ---
+# --- CALCULATOR SECTION ---
 elif menu == "Scientific Calculator":
     st.header("Physics Computation Lab")
     col1, col2 = st.columns(2)
@@ -89,12 +84,14 @@ elif menu == "Scientific Calculator":
         energy = mass * (c**2)
         st.metric("Energy (Joules)", f"{energy:.2e} J")
 
+# --- FUNDAMENTAL FORCES ---
 elif menu == "Fundamental Forces":
     st.header("The Four Fundamental Forces")
-    forces = {"Gravity": "Governs planetary and galactic motion.", "Electromagnetism": "Controls light and atomic structure.", "Weak Nuclear": "Responsible for radioactive decay.", "Strong Nuclear": "Holds atomic nuclei together."}
+    forces = {"Gravity": "Infinite range. Governs planetary motion.", "Electromagnetism": "Controls light.", "Weak Nuclear": "Responsible for radioactive decay.", "Strong Nuclear": "Holds atomic nuclei together."}
     for f, desc in forces.items():
         with st.expander(f): st.write(desc)
 
+# --- LAWS OF MOTION ---
 elif menu == "Laws of Motion":
     st.header("Newtonian Dynamics")
     st.markdown("1. **Inertia**")
@@ -102,22 +99,26 @@ elif menu == "Laws of Motion":
     st.markdown("2. **Acceleration**")
     st.markdown("3. **Reaction**")
 
-# --- PEOPLE (NEW ROBUST IMAGE LINKS) ---
+# --- PEOPLE (USING YOUR THREE IMAGES) ---
 elif menu == "People":
     st.header("Scientific Pioneers")
     st.write("Explorers of the fundamental laws of nature.")
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.image("https://pixabay.com", caption="Sir Isaac Newton (Historical Profile)")
+        try: st.image("newton.jpg", caption="Sir Isaac Newton")
+        except: st.warning("Newton image not found on GitHub.")
         st.write("**Classical Mechanics**: Developed the laws of motion and gravitation.")
     with col2:
-        st.image("https://pixabay.com", caption="Albert Einstein (Theoretical Physics)")
-        st.write("**Relativity**: Theory that revolutionized space and time.")
+        try: st.image("einstein.jpg", caption="Albert Einstein")
+        except: st.warning("Einstein image not found on GitHub.")
+        st.write("**Relativity**: Revolutionized space and time.")
     with col3:
-        st.image("https://pixabay.com", caption="Stephen Hawking (Cosmology Focus)")
+        try: st.image("hawking.jpg", caption="Stephen Hawking")
+        except: st.warning("Hawking image not found on GitHub.")
         st.write("**Cosmology**: Transformed our understanding of black holes.")
 
+# --- MY PROJECTS ---
 elif menu == "My Projects":
     st.header("Project Repository")
     st.info("Status: Analyzing Gravitational Lensing Data from JWST.")
