@@ -1,93 +1,60 @@
-import streamlit as st
+", use_container_width=True)
 
-# --- PAGE CONFIG ---
-st.set_page_config(page_title="Cosmic Explorer", layout="wide", page_icon="🚀")
+    st.markdown("### 🔍 Research Search")
+    query = st.text_input("", placeholder="Search astrophysics archives...")
+    if query: st.info(f"Searching archives for: '{query}'...")
 
-# --- FUN FONTS & THEMES ---
-st.markdown("""
-    <style>
-    @import url('https://googleapis.com');
-    
-    .stApp { font-family: 'Orbitron', sans-serif; }
-    h1 {
-        font-family: 'Bangers', cursive;
-        color: #FFD700;
-        text-shadow: 2px 2px #ff4b4b;
-        font-size: 3.5rem !important;
-        text-align: center;
+# --- CALCULATOR SECTION ---
+elif menu == "Scientific Calculator":
+    st.header("Physics Computation Lab")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Gravity Calculator")
+        m1 = st.number_input("Mass 1 (kg)", value=5.97e24, format="%.2e")
+        m2 = st.number_input("Mass 2 (kg)", value=7.34e22, format="%.2e")
+        r = st.number_input("Distance (m)", value=3.84e8, format="%.2e")
+        G = 6.67430e-11
+        force = G * (m1 * m2) / (r**2)
+        st.metric("Gravitational Force", f"{force:.2e} N")
+    with col2:
+        st.subheader("Energy-Mass Equivalence")
+        mass = st.number_input("Object Mass (kg)", value=1.0)
+        c = 3e8
+        energy = mass * (c**2)
+        st.metric("Energy (Joules)", f"{energy:.2e} J")
+
+# --- FUNDAMENTAL FORCES ---
+elif menu == "Fundamental Forces":
+    st.header("The Four Fundamental Forces")
+    forces = {
+        "Gravity": "Weakest force, infinite range. Governs planetary orbits.",
+        "Electromagnetism": "Between charged particles. Governs light and atomic structure.",
+        "Weak Nuclear": "Short range. Responsible for beta decay in stars.",
+        "Strong Nuclear": "Strongest force. Binds protons and neutrons in the nucleus."
     }
-    /* Search Bar Styling */
-    .stTextInput > div > div > input { border-radius: 20px; border: 2px solid #702963; }
-    </style>
-    """, unsafe_allow_html=True)
+    for f, desc in forces.items():
+        with st.expander(f): st.write(desc)
 
-# --- SIDEBAR (THE 3 LINES DROPDOWN MENU) ---
-with st.sidebar:
-    st.markdown("# 🌌 Navigation")
-    mode = st.radio("Display Mode:", ["✨ Starry Night (Dark)", "☀️ Supernova (Light)"])
-    st.divider()
-    
-    # Taskbar content including the requested Gravity Calculator
-    menu = st.selectbox("Explore the Universe", 
-                        ["Home", "Current Projects", "Equations & Laws", "Wormholes & Black Holes", "Gravity Calculator 🪐", "Space News 🛰️"])
-    
-    st.divider()
-    if st.button("👽 Contact Aliens"):
-        st.balloons()
-        st.success("Signal sent to Andromeda!")
-
-# --- MAIN CONTENT LOGIC ---
-if menu == "Home":
-    st.markdown("<h1>🚀 COSMIC DASHBOARD 🚀</h1>")
-    st.image("https://nasa.gov", 
-             caption="NASA James Webb Deep Field Image", use_container_width=True)
-    
-    # Search Bar Section
-    st.write("### 🔍 Search Research Databases")
-    search_query = st.text_input("Find theories or laws...", placeholder="e.g. Newton's Laws or G.U.T.")
-    if search_query:
-        st.info(f"Scanning deep-space archives for: **{search_query}**... 🛸")
-
-elif menu == "Current Projects":
-    st.header("🛸 Active Missions")
-    st.write("Current goal: Finding the **Grand Unified Field Theory** to bridge quantum and gravity!")
-    st.write("- **Mars AI Mapping**: Finding lava tubes for future colonies.")
-
-elif menu == "Equations & Laws":
-    st.header("📜 The Laws of Motion")
+# --- LAWS OF MOTION ---
+elif menu == "Laws of Motion":
+    st.header("Newtonian Dynamics")
+    st.markdown("1. **Inertia**: Velocity remains constant unless a net force acts.")
     st.latex(r"F = ma")
-    st.write("**Newton's Second Law**: Acceleration is produced when a force acts on a mass.")
+    st.markdown("2. **Acceleration**: Proportional to force and inversely to mass.")
+    st.markdown("3. **Reaction**: Every action has an equal/opposite reaction.")
 
-elif menu == "Wormholes & Black Holes":
-    st.header("🕳️ Spacetime Anomalies")
-    st.image("https://wikimedia.org", width=500)
-    st.warning("Approaching the Event Horizon! Information paradox detected.")
+# --- PEOPLE ---
+elif menu == "People":
+    st.header("Scientific Pioneers")
+    p1, p2, p3 = st.columns(3)
+    with p1:
+        st.image("https://wikimedia.org", caption="Isaac Newton")
+    with p2:
+        st.image("https://wikimedia.org", caption="Albert Einstein")
+    with p3:
+        st.image("https://wikimedia.org", caption="Stephen Hawking")
 
-elif menu == "Gravity Calculator 🪐":
-    st.header("⚖️ Interplanetary Gravity Lab")
-    st.write("Ever wondered how much you would weigh on another world?")
-    
-    user_weight = st.number_input("Enter your weight on Earth (kg or lbs):", min_value=1.0, value=70.0)
-    planet = st.selectbox("Select a Planet:", ["Moon", "Mars", "Jupiter", "Saturn", "Neptune"])
-    
-    # Gravity factors relative to Earth
-    gravity_map = {"Moon": 0.165, "Mars": 0.377, "Jupiter": 2.528, "Saturn": 1.065, "Neptune": 1.137}
-    
-    new_weight = user_weight * gravity_map[planet]
-    st.metric(label=f"Your weight on {planet}", value=f"{round(new_weight, 2)} units")
-    st.write(f"The gravity on {planet} is {int(gravity_map[planet]*100)}% of Earth's gravity.")
-
-elif menu == "Space News 🛰️":
-    st.header("📰 Latest Galactic News (May 2026)")
-    news = [
-        "🛸 **UFO Files Declassified**: Pentagon releases new footage [via New York Times](https://nytimes.com).",
-        "🌕 **Artemis II Mission**: Crewed lunar fly-around confirmed for next month [via Space.com](https://space.com).",
-        "🔭 **James Webb Update**: New detailed images of the [Carina Nebula](https://esawebb.org/images/) revealed."
-    ]
-    for item in news: st.markdown(item)
-
-# --- LIGHT/DARK MODE TOGGLE ---
-if mode == "☀️ Supernova (Light)":
-    st.markdown("<style>.stApp { background-color: white; color: black; }</style>", unsafe_allow_html=True)
-else:
-    st.markdown("<style>.stApp { background-color: #0E1117; color: white; }</style>", unsafe_allow_html=True)
+# --- MY PROJECTS ---
+elif menu == "My Projects":
+    st.header("Project Repository")
+    st.info("Status: Analyzing Gravitational Lensing Data from JWST.")
